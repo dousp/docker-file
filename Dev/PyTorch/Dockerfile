@@ -21,14 +21,14 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak &&\
     echo "# 预发布软件源，不建议启用" >> /etc/apt/sources.list  &&\
     echo "# deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-proposed main restricted universe multiverse" >> /etc/apt/sources.list  &&\
     echo "# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jjammy-proposed main restricted universe multiverse" >> /etc/apt/sources.list  &&\
-    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/'  /etc/ssh/sshd_config &&\
-    echo "root:123456" | chpasswd &&\
-    echo  "alias ll='ls -l'" >> ~/.bash_profile &&\
-    echo  "alias pip='pip3'" >> ~/.bash_profile &&\
     apt-get update && apt-get upgrade -y &&\
     apt-get -y install sudo gcc make vim openssl libssl-dev libarchive-dev python3-pip &&\
     apt-get -y install vim ffmpeg libsm6 libxext6 cron openssh-server &&\
     apt-get -y install tzdata && ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && echo "$TZ" > /etc/timezone &&\
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/'  /etc/ssh/sshd_config &&\
+    echo "root:123456" | chpasswd &&\
+    echo  "alias ll='ls -l'" >> ~/.bash_profile &&\
+    echo  "alias pip='pip3'" >> ~/.bash_profile &&\
     apt-get -y dist-upgrade autoremove autoclean &&\
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
