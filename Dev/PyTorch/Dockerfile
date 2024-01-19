@@ -22,8 +22,8 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak &&\
     echo "# deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-proposed main restricted universe multiverse" >> /etc/apt/sources.list  &&\
     echo "# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jjammy-proposed main restricted universe multiverse" >> /etc/apt/sources.list  &&\
     apt-get update && apt-get upgrade -y &&\
-    apt-get install sudo gcc make vim openssl libssl-dev -y --no-install-recommends &&\
-    apt-get install libsm6 libxext6 cron openssh-server -y --no-install-recommends &&\
+    apt-get install sudo gcc make cron dialog openssl openssh-server -y --no-install-recommends &&\
+    apt-get install libssl-dev libsm6 libxext6 -y --no-install-recommends &&\
     apt-get install vim git python3-pip -y --no-install-recommends &&\
     apt-get install tzdata -y --no-install-recommends && ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && echo "$TZ" > /etc/timezone &&\
     apt-get clean && rm -rf /var/lib/apt/lists/*
