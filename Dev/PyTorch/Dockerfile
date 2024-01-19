@@ -26,10 +26,10 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak &&\
     apt-get install libsm6 libxext6 cron openssh-server -y --no-install-recommends &&\
     apt-get install vim git python3-pip -y --no-install-recommends &&\
     apt-get install tzdata -y --no-install-recommends && ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && echo "$TZ" > /etc/timezone &&\
-    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/'  /etc/ssh/sshd_config &&\
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN echo  "alias ll='ls -l'" >> ~/.bash_profile &&\
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/'  /etc/ssh/sshd_config &&\
+    echo  "alias ll='ls -l'" >> ~/.bash_profile &&\
     echo  "alias pip='pip3'" >> ~/.bash_profile &&\
     pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple &&\
     pip install pip -U &&\
