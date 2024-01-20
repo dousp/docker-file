@@ -5,6 +5,7 @@ LABEL maintainer="DD <douspeng@sina.cn>" \
       description="base env"
 
 ENV TZ=Asia/Shanghai
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak &&\
     chmod a+x /etc/apt/sources.list  &&\
@@ -25,7 +26,7 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak &&\
 
 RUN apt-get install tzdata -y --no-install-recommends && ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && echo "$TZ" > /etc/timezone &&\
     apt-get install sudo gcc make cron dialog openssh-server openssl -y --no-install-recommends &&\
-#    apt-get install libssl-dev libsm6 libxext6 -y --no-install-recommends &&\
+    apt-get install libssl-dev libsm6 libxext6 -y --no-install-recommends &&\
     apt-get install vim git python3-pip -y --no-install-recommends &&\
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
