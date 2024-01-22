@@ -32,7 +32,8 @@ RUN \
     apt-get install tzdata -y && ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && echo "$TZ" > /etc/timezone &&\
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/'  /etc/ssh/sshd_config &&\
+RUN \
+#    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/'  /etc/ssh/sshd_config &&\
     echo  "alias ll='ls -l'" >> ~/.bash_profile &&\
     echo  "alias pip='pip3'" >> ~/.bash_profile &&\
     pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple &&\
