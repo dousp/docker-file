@@ -18,23 +18,23 @@ RUN rm -rf /var/lib/apt/lists/* && apt-get clean && apt-get update && apt-get up
 RUN echo  "alias ll='ls -l'" >> ~/.bash_profile &&\
     echo  "alias pip='pip3'" >> ~/.bash_profile &&\
     pip install pip -U &&\
-    pip install --no-cache-dir  transformers --yes &&\
-    pip install --no-cache-dir ffmpeg --yes &&\
-    pip install --no-cache-dir ffmpeg-python --yes &&\
-    pip install --no-cache-dir timm --yes &&\
-    pip install --no-cache-dir datasets --yes &&\
-    pip install --no-cache-dir evaluate --yes &&\
-    pip install --no-cache-dir scikit-learn --yes &&\
-    pip install --no-cache-dir pandas --yes &&\
-    pip install --no-cache-dir peft --yes &&\
-    pip install --no-cache-dir accelerate --yes &&\
-    pip install --no-cache-dir autoawq --yes &&\
-    pip install --no-cache-dir optimum --yes &&\
-    pip install --no-cache-dir auto-gptq --yes &&\
-    pip install --no-cache-dir bitsandbytes>=0.39.0 --yes &&\
-    pip install --no-cache-dir jiwer --yes &&\
-    pip install --no-cache-dir soundfile>=0.12.1 --yes &&\
-    pip install --no-cache-dir librosa --yes &&\
-    pip install --no-cache-dir langchain --yes &&\
-    pip install --no-cache-dir gradio --yes &&\
+    pip install --no-cache-dir  transformers  &&\
+    pip install --no-cache-dir ffmpeg  &&\
+    pip install --no-cache-dir ffmpeg-python  &&\
+    pip install --no-cache-dir timm  &&\
+    pip install --no-cache-dir datasets  &&\
+    pip install --no-cache-dir evaluate  &&\
+    pip install --no-cache-dir scikit-learn  &&\
+    pip install --no-cache-dir pandas  &&\
+    pip install --no-cache-dir peft  &&\
+    pip install --no-cache-dir accelerate  &&\
+    pip install --no-cache-dir autoawq  &&\
+    pip install --no-cache-dir optimum  &&\
+    pip install --no-cache-dir auto-gptq  &&\
+    pip install --no-cache-dir bitsandbytes>=0.39.0  &&\
+    pip install --no-cache-dir jiwer  &&\
+    pip install --no-cache-dir soundfile>=0.12.1  &&\
+    pip install --no-cache-dir librosa  &&\
+    pip install --no-cache-dir langchain  &&\
+    pip install --no-cache-dir gradio  &&\
     pip cache purge
