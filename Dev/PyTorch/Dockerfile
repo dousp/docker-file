@@ -8,7 +8,6 @@ ENV TZ=Asia/Shanghai
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN rm -rf /var/lib/apt/lists/* && apt-get clean && apt-get update && apt-get upgrade -y &&\
-#    apt-get install gcc make cron dialog libssl-dev libsm6 libxext6 openssh-server openssl -y --no-install-recommends &&\
     apt-get install -y --no-install-recommends apt-utils &&\
     apt-get install -y --no-install-recommends software-properties-common &&\
     apt-get install -y --no-install-recommends sudo curl wget git vim unzip zip python3-pip python3-dev build-essential &&\
