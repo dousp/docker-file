@@ -1,0 +1,43 @@
+name: Build and Deploy to ACK
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# Environment variables available to all jobs and steps in this workflow.
+env:
+  REGION_ID: cn-shanghai
+  REGISTRY: registry.cn-shanghai.aliyuncs.com
+  NAMESPACE: douspeng
+  IMAGE: llm-dev
+  TAG: ${{ github.sha }}
+  FILE_PATH: Dev/PyTorch/Dockerfile
+
+# permissions:
+  # contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # 1.1 Login to ACR
+    - name: Login to ACR with the AccessKey pair
+      uses: aliyun/acr-login@v1
+      with:
+        region-id: "${{ env.REGION_ID }}"
+        access-key-id: "${{ secrets.ALIYUN_USERNAME }}"
+        access-key-secret: "${{ secrets.ALIYUN_SECRET }}"
+
+    # 1.2 Buid and push image to ACR
+    - name: Build and push image to ACR
+      run: |
+        docker build . --file "$FILE_PATH"  --tag "$REGISTRY/$NAMESPACE/$IMAGE:$TAG"
+        docker push "$REGISTRY/$NAMESPACE/$IMAGE:$TAG"
+
