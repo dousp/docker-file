@@ -31,9 +31,12 @@ jobs:
     - name: Login to ACR with the AccessKey pair
       uses: aliyun/acr-login@v1
       with:
+        login-server: "${{ env.REGISTRY }}"
         region-id: "${{ env.REGION_ID }}"
-        access-key-id: "${{ secrets.ALIYUN_USERNAME }}"
-        access-key-secret: "${{ secrets.ALIYUN_SECRET }}"
+        username: "${{ secrets.ALIYUN_USERNAME }}"
+        password: "${{ secrets.ALIYUN_SECRET }}"
+#        access-key-id: "${{ secrets.ALIYUN_USERNAME }}"
+#        access-key-secret: "${{ secrets.ALIYUN_SECRET }}"
 
     # 1.2 Buid and push image to ACR
     - name: Build and push image to ACR
