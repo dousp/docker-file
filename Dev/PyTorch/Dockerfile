@@ -17,26 +17,24 @@ RUN rm -rf /var/lib/apt/lists/* && apt-get clean && apt-get update && apt-get up
 
 RUN echo  "alias ll='ls -l'" >> ~/.bash_profile &&\
     echo  "alias pip='pip3'" >> ~/.bash_profile &&\
-#    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/'  /etc/ssh/sshd_config &&\
     pip install pip -U &&\
-    pip3 install --no-cache-dir -y \
-        transformers \
-        ffmpeg \
-        ffmpeg-python \
-        timm \
-        datasets \
-        evaluate \
-        scikit-learn \
-        pandas \
-        peft \
-        accelerate \
-        autoawq \
-        optimum \
-        auto-gptq \
-        bitsandbytes>=0.39.0 \
-        jiwer \
-        soundfile>=0.12.1 \
-        librosa \
-        langchain \
-        gradio &&\
+    pip3 install --no-cache-dir -y transformers &&\
+    pip3 install --no-cache-dir -y ffmpeg &&\
+    pip3 install --no-cache-dir -y ffmpeg-python &&\
+    pip3 install --no-cache-dir -y timm &&\
+    pip3 install --no-cache-dir -y datasets &&\
+    pip3 install --no-cache-dir -y evaluate &&\
+    pip3 install --no-cache-dir -y scikit-learn &&\
+    pip3 install --no-cache-dir -y pandas &&\
+    pip3 install --no-cache-dir -y peft &&\
+    pip3 install --no-cache-dir -y accelerate &&\
+    pip3 install --no-cache-dir -y autoawq &&\
+    pip3 install --no-cache-dir -y optimum &&\
+    pip3 install --no-cache-dir -y auto-gptq &&\
+    pip3 install --no-cache-dir -y bitsandbytes>=0.39.0 &&\
+    pip3 install --no-cache-dir -y jiwer &&\
+    pip3 install --no-cache-dir -y soundfile>=0.12.1 &&\
+    pip3 install --no-cache-dir -y librosa &&\
+    pip3 install --no-cache-dir -y langchain &&\
+    pip3 install --no-cache-dir -y gradio &&\
     pip cache purge
