@@ -8,6 +8,9 @@ WORKDIR /temp
 
 # 安装基础包
 RUN \
+    cp /etc/apt/sources.list /etc/apt/sources.list.bak &&\
+    sed -i '/^#/d' /etc/apt/sources.list > /etc/apt/sources.list.new &&\
+    mv /etc/apt/sources.list.new /etc/apt/sources.list &&\
     apt update && \
     apt install -y \
         sudo curl wget git vim unzip zip \
@@ -32,6 +35,7 @@ RUN wget https://www.python.org/ftp/python/"$PYTHON_VERSION"/Python-"$PYTHON_VER
 # 创建llm-dev环境并安装PyTorch
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
     bash miniconda.sh -b -p /opt/miniconda && \
+    source ~/.bashrc && \
     conda init bash && \
     conda create -n llm-dev python="$PYTHON_VERSION" && \
     conda activate llm-dev && \
