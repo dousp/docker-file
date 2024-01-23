@@ -11,9 +11,10 @@ env:
   REGION_ID: cn-shanghai
   REGISTRY: registry.cn-shanghai.aliyuncs.com
   NAMESPACE: douspeng
-  IMAGE: llm-dev
+  IMAGE: llm-cuda-dev
   TAG: ${{ github.sha }}
-  FILE_PATH: Dev/PyTorch/Dockerfile
+  # FILE_PATH: Dev/PyTorch/Dockerfile
+  FILE_PATH: Dev/CUDA/Dockerfile
 
 # permissions:
   # contents: read
