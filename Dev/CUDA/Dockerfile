@@ -43,20 +43,12 @@ RUN \
 # 创建llm-dev环境并安装PyTorch
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
     bash miniconda.sh -b -p /opt/miniconda
-#    /opt/miniconda/bin/conda init bash && \
-#    echo 'export PATH="/opt/miniconda/bin:$PATH"' >> ~/.bashrc  && \
-#    source ~/.bashrc
 
 ENV PATH="/opt/miniconda/bin:$PATH"
-
-RUN \
-    conda init
-
-RUN \
-    conda init bash && \
-    conda create -n llm-dev python="$PYTHON_VERSION" && \
-    conda activate llm-dev && \
-    conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
+RUN conda init bash
+RUN conda create -n llm-dev python="$PYTHON_VERSION"
+RUN conda activate llm-dev && \
+RUN conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
 
 
 WORKDIR /workspace
