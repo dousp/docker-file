@@ -50,6 +50,9 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -
 ENV PATH="/opt/miniconda/bin:$PATH"
 
 RUN \
+    conda init
+
+RUN \
     conda init bash && \
     conda create -n llm-dev python="$PYTHON_VERSION" && \
     conda activate llm-dev && \
