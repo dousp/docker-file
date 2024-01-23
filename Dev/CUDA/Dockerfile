@@ -7,11 +7,10 @@ ENV PYTHON_VERSION=3.11.7
 WORKDIR /temp
 
 # 安装基础包
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A4B469963BF863CC && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 871920D1991BC93C && \
+RUN \
     apt update && \
     apt install -y \
-        sudo curl wget git vim unzip zip \
+        dirmngr sudo curl wget git vim unzip zip \
         build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev \
         libreadline-dev libffi-dev libsqlite3-dev libbz2-dev liblzma-dev && \
     apt clean && \
