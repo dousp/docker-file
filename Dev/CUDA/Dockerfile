@@ -1,5 +1,9 @@
 FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
 
+# 指定使用bash
+#RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+SHELL ["/bin/bash", "-c"]
+
 # 设置环境变量
 ENV PATH="/opt/miniconda/bin:$PATH"
 ENV PYTHON_VERSION=3.11.7
@@ -40,6 +44,7 @@ RUN wget https://www.python.org/ftp/python/"$PYTHON_VERSION"/Python-"$PYTHON_VER
 # 创建llm-dev环境并安装PyTorch
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
     bash miniconda.sh -b -p /opt/miniconda && \
+    echo 'export PATH="/opt/miniconda/bin:$PATH"' >> ~/.bashrc  && \
     source ~/.bashrc && \
     conda init bash && \
     conda create -n llm-dev python="$PYTHON_VERSION" && \
