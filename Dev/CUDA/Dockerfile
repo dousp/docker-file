@@ -30,7 +30,6 @@ RUN \
 
 # install python
 # https://www.python.org/ftp/python/
-
 #RUN wget https://www.python.org/ftp/python/"$PYTHON_VERSION"/Python-"$PYTHON_VERSION".tgz && \
 #    tar -xvf Python-"$PYTHON_VERSION".tgz && \
 #    cd Python-"$PYTHON_VERSION" && \
@@ -47,7 +46,7 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -
     /opt/miniconda/bin/conda init bash && \
     echo 'export PATH="/opt/miniconda/bin:$PATH"' >> ~/.bashrc  && \
     source ~/.bashrc && \
-#    conda init bash && \
+    conda init bash && \
     conda create -n llm-dev python="$PYTHON_VERSION" && \
     conda activate llm-dev && \
     conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
