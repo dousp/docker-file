@@ -41,10 +41,12 @@ RUN \
 
 # 安装Miniconda
 # 创建llm-dev环境并安装PyTorch
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
-    bash miniconda.sh -b -p /opt/miniconda
 
-#ENV PATH="/opt/miniconda/bin:$PATH"
+ENV PATH="/opt/miniconda/bin:$PATH"
+
+RUN \
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
+    bash miniconda.sh -b -p /opt/miniconda
 
 RUN \
     conda update -y conda && \
