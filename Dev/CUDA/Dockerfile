@@ -8,15 +8,21 @@ WORKDIR /temp
 
 # 安装基础包
 RUN \
+    rm -f /etc/apt/sources.list.d/cuda*.list && \
+    apt-key del 7fa2af80 && \
+    apt-get update && \
+    apt-get -y install --no-install-recommends sudo wget && \
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb && \
+    sudo dpkg -i cuda-keyring_1.0-1_all.deb && \
+RUN \
     cp /etc/apt/sources.list /etc/apt/sources.list.bak &&\
     sed -i '/^#/d' /etc/apt/sources.list > /etc/apt/sources.list.new &&\
     mv /etc/apt/sources.list.new /etc/apt/sources.list &&\
-    apt update && \
-    apt install -y \
-        sudo curl wget git vim unzip zip \
+    apt-get install -y --no-install-recommends \
+        curl git vim unzip zip \
         build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev \
         libreadline-dev libffi-dev libsqlite3-dev libbz2-dev liblzma-dev && \
-    apt clean && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # install python
