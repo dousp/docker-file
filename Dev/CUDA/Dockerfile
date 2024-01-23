@@ -47,7 +47,7 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -
 ENV PATH="/opt/miniconda/bin:$PATH"
 RUN conda init bash
 RUN conda create -n llm-dev python="$PYTHON_VERSION"
-RUN conda activate llm-dev && \
+RUN conda activate llm-dev
 RUN conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
 
 
