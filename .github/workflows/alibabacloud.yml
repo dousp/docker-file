@@ -12,7 +12,8 @@ env:
   REGISTRY: registry.cn-shanghai.aliyuncs.com
   NAMESPACE: douspeng
   IMAGE: llm-cuda-dev
-  TAG: ${{ github.sha }}
+#  TAG: ${{ github.sha }}
+  TAG: $(date + '%Y%m%d%H%M%S')
   # FILE_PATH: Dev/PyTorch/Dockerfile
   FILE_PATH: Dev/CUDA/Dockerfile
 
