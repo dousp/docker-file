@@ -46,6 +46,11 @@ jobs:
       env:
         IMAGE_TAG: ${{ github.run_number }}-${{ env.IMAGE_TAG }}
       run:
-        docker build . --file "$FILE_PATH"  --tag "$REGISTRY/$NAMESPACE/$IMAGE_NAME:$IMAGE_TAG"
-        docker push "$REGISTRY/$NAMESPACE/$IMAGE_NAME:$IMAGE_TAG"
+        docker buildx build \
+          --file "$FILE_PATH" \
+          --tag "$REGISTRY/$NAMESPACE/$IMAGE_NAME:$IMAGE_TAG" \
+          --push .
+
+#        docker build . --file "$FILE_PATH"  --tag "$REGISTRY/$NAMESPACE/$IMAGE_NAME:$IMAGE_TAG"
+#        docker push "$REGISTRY/$NAMESPACE/$IMAGE_NAME:$IMAGE_TAG"
 
