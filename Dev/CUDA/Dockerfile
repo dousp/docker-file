@@ -15,9 +15,6 @@ RUN \
     rm -f /etc/apt/sources.list.d/cuda*.list && \
     apt-key del 7fa2af80 && \
     apt-get update && \
-    apt-get clean
-
-RUN \
     apt-get install -y --no-install-recommends sudo wget && \
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb && \
     sudo dpkg -i cuda-keyring_1.0-1_all.deb && \
