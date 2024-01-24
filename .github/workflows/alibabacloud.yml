@@ -36,26 +36,25 @@ jobs:
         region-id: "${{ env.REGION_ID }}"
         username: "${{ secrets.ALIYUN_USERNAME }}"
         password: "${{ secrets.ALIYUN_SECRET }}"
-#        access-key-id: "${{ secrets.ALIYUN_USERNAME }}"
-#        access-key-secret: "${{ secrets.ALIYUN_SECRET }}"
+        # access-key-id: "${{ secrets.ALIYUN_USERNAME }}"
+        # access-key-secret: "${{ secrets.ALIYUN_SECRET }}"
 
+    # 1.2 Get current date
     - name: Get current date
       id: currentDate
       run:
         echo "::set-output name=date::$(date +'%Y%m%d-%H%M%S')"
 
+    # 1.3 Set image tag
     - name: Check current date
       env:
         IMAGE_TAG: ${{ github.run_number }}-${{ steps.currentDate.outputs.date }}
       run:
         echo $IMAGE_TAG
 
-    # 1.2 Buid and push image to ACR
+    # 1.4 Buid and push image to ACR
     - name: Build and push image to ACR
-#      env:
-#        IMAGE_TAG: ${{ github.run_number }}-${{ env.DATE_TIME }}
       run: |
-#        echo "DATE_TIME=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
         docker build . --file "$FILE_PATH"  --tag "$REGISTRY/$NAMESPACE/$IMAGE_NAME:$IMAGE_TAG"
         docker push "$REGISTRY/$NAMESPACE/$IMAGE_NAME:$IMAGE_TAG"
 
