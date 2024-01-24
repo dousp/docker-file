@@ -43,7 +43,7 @@ RUN \
 # 创建llm-dev环境并安装PyTorch
 
 ENV PATH="/opt/miniconda/bin:$PATH"
-ENV CONDA_DEFAULT_ENV llm-dev
+#ENV CONDA_DEFAULT_ENV llm-dev
 
 RUN \
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
@@ -51,14 +51,14 @@ RUN \
 
 RUN \
     conda update -y conda && \
-    conda create -n llm-dev python="$PYTHON_VERSION" && \
-    /bin/bash -c "source activate llm-dev" && \
-    echo "conda activate llm-dev" >> ~/.bashrc
+    conda create -n llm-dev python="$PYTHON_VERSION"
+#    /bin/bash -c "source activate llm-dev" && \
+#    echo "conda activate llm-dev" >> ~/.bashrc
 
 #ENV PATH /opt/miniconda/envs/llm-dev/bin:$PATH
 
 
-#SHELL ["conda", "run", "--no-capture-output", "-n", "llm-dev", "/bin/bash", "-c"]
+SHELL ["conda", "run", "--no-capture-output", "-n", "llm-dev", "/bin/bash", "-c"]
 
 RUN conda info --envs
 #    conda activate llm-dev
