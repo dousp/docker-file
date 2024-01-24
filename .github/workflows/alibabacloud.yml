@@ -12,7 +12,6 @@ env:
   REGISTRY: registry.cn-shanghai.aliyuncs.com
   NAMESPACE: douspeng
   IMAGE_NAME: llm-cuda-dev
-  IMAGE_TAG: ${{ github.run_number }}-${{ env.DATE_TIME }}
   TAG: ${{ github.sha }}
   # FILE_PATH: Dev/PyTorch/Dockerfile
   FILE_PATH: Dev/CUDA/Dockerfile
@@ -42,6 +41,8 @@ jobs:
 
     # 1.2 Buid and push image to ACR
     - name: Build and push image to ACR
+      env:
+        IMAGE_TAG: ${{ github.run_number }}-${{ env.DATE_TIME }}
       run: |
         echo "DATE_TIME=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
         docker build . --file "$FILE_PATH"  --tag "$REGISTRY/$NAMESPACE/$IMAGE_NAME:$IMAGE_TAG"
