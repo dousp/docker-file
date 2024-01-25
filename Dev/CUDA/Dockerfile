@@ -7,6 +7,9 @@ SHELL ["/bin/bash", "-c"]
 # 设置环境变量
 
 ENV PYTHON_VERSION=3.11.7
+#非交互方式安装包
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Shanghai
 
 WORKDIR /temp
 
@@ -22,7 +25,7 @@ RUN \
         curl git vim unzip zip ffmpeg \
         build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev \
         libreadline-dev libffi-dev libsqlite3-dev libbz2-dev liblzma-dev && \
-    apt-get install tzdata -y && ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && echo "$TZ" > /etc/timezone &&\
+    apt-get install -y tzdata && ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && echo "$TZ" > /etc/timezone &&\
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -38,7 +41,9 @@ RUN \
     conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ && \
     conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ && \
     conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ && \
+    conda config --add channels https://mirrors.aliyun.com/anaconda/cloud/nvidia/ && \
     conda config --set show_channel_urls yes && \
+    conda clean -i && \
     conda update conda -y && \
     conda install -n base micromamba -y && \
     conda create -n llm-dev python="$PYTHON_VERSION" && \
