@@ -1,17 +1,25 @@
-# docker-file
-docker file
+# 踩坑记录
 
 ##  Nvidia Container Toolkit
 
 - 不安这个容器没办法用宿主机显卡
-- https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+- 安装：https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
 
 ## CUDA
  
 - N卡必备
-- -https://developer.nvidia.com/cuda-12-1-1-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_network
+- 安装：https://developer.nvidia.com/cuda-12-1-1-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_network
+- docker镜像：https://hub.docker.com/r/nvidia/cuda/tags
 
-## install python
+## PyTorch
+
+- 官网/安装：https://pytorch.org/
+- docker镜像：https://hub.docker.com/r/pytorch/pytorch/tags
+
+## Jupyter Notebook
+
+
+## Install Python
 - 安装conda会自带python，这个就省了
 
 ```dockerfile
@@ -62,3 +70,8 @@ RUN \
     sudo dpkg -i cuda-keyring_1.0-1_all.deb
 ```
 
+## 帖子参考
+
+- https://zhuanlan.zhihu.com/p/471484611 
+  - 这个作者还提供了能生成构建脚本的github repo
+  - https://github.com/cnstark/pytorch-docker
