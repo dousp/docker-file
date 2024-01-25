@@ -1,6 +1,30 @@
 # docker-file
 docker file
 
+##  Nvidia Container Toolkit
+
+- 不安这个容器没办法用宿主机显卡
+- https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+
+## CUDA
+ 
+- N卡必备
+- -https://developer.nvidia.com/cuda-12-1-1-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_network
+
+## install python
+- 安装conda会自带python，这个就省了
+
+```dockerfile
+# https://www.python.org/ftp/python/
+#RUN wget https://www.python.org/ftp/python/"$PYTHON_VERSION"/Python-"$PYTHON_VERSION".tgz && \
+#    tar -xvf Python-"$PYTHON_VERSION".tgz && \
+#    cd Python-"$PYTHON_VERSION" && \
+#    ./configure --enable-optimizations && \
+#    make && \
+#    make install && \
+#    ln -s /usr/local/bin/python3 /usr/local/bin/python && \
+#    ln -s /usr/local/bin/pip3 /usr/local/bin/pip
+```
 
 ## 问题整理
 
@@ -22,7 +46,7 @@ SHELL ["conda", "run", "--no-capture-output", "-n", "llm-dev", "/bin/bash", "-c"
 ```
 
 ### cuda镜像构建需要做处理
-
+- 用cuda镜像的时候容器出幺蛾子
 - https://github.com/NVIDIA/nvidia-container-toolkit/issues/258
 
 ```dockerfile
@@ -37,3 +61,4 @@ RUN \
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb && \
     sudo dpkg -i cuda-keyring_1.0-1_all.deb
 ```
+
