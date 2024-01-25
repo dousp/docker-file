@@ -3,8 +3,12 @@ name: Build and Deploy to ACK
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - Dev/CUDA/Dockerfile
   pull_request:
     branches: [ "main" ]
+    paths:
+      - Dev/CUDA/Dockerfile
 
 env:
   REGION_ID: cn-shanghai
