@@ -47,14 +47,14 @@ SHELL ["conda", "run", "--no-capture-output", "-n", "llm-dev", "/bin/bash", "-c"
 RUN conda info --env && \
     python --version && \
     conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia -y && \
-    conda install -n base -c conda-forge micromamba && \
+    conda install -n base micromamba && \
     mba install \
         tqdm \
         iprogress \
         ffmpeg \
         ffmpeg-python \
         pillow -y && \
-    mba install -c huggingface transformers -y && \
+    mba install transformers -y && \
     mba install tensorflow -y && \
     mba install jupyterlab -y && \
     mba install \
