@@ -12,9 +12,6 @@ WORKDIR /temp
 
 # 安装基础包
 RUN \
-    echo  "alias mba='micromamba'" >> ~/.bash_profile && \
-    echo  "alias pip='pip3'" >> ~/.bash_profile && \
-    echo  "alias python='python3'" >> ~/.bash_profile && \
     rm -f /etc/apt/sources.list.d/cuda*.list && \
     apt-key del 7fa2af80 && \
     apt-get update && \
@@ -37,8 +34,19 @@ ENV PATH="/opt/miniconda/bin:$PATH"
 RUN \
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
     bash miniconda.sh -b -p /opt/miniconda  && \
-    conda update -y conda && \
-    conda create -n llm-dev python="$PYTHON_VERSION"
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ && \
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ && \
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ && \
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ && \
+    conda config --set show_channel_urls yes && \
+    conda update conda -y && \
+    conda install -n base micromamba -y && \
+    conda create -n llm-dev python="$PYTHON_VERSION" && \
+    echo "alias mba='micromamba'" >> ~/.bashrc && \
+    echo "alias pip='pip3'" >> ~/.bashrc && \
+    echo "alias python='python3'" >> ~/.bashrc && \
+    echo ". /opt/miniconda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate llm-dev" >> ~/.bashrc
 
 #ENV PATH /opt/miniconda/envs/llm-dev/bin:$PATH
 
@@ -46,18 +54,16 @@ SHELL ["conda", "run", "--no-capture-output", "-n", "llm-dev", "/bin/bash", "-c"
 
 RUN conda info --env && \
     python --version && \
-    conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia -y && \
-#    conda install -n base micromamba && \
-    conda install \
+    mba install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia -y && \
+    mba install tensorflow -y && \
+    mba install transformers -y && \
+    mba install jupyterlab -y && \
+    mba install \
         tqdm \
         iprogress \
         ffmpeg \
         ffmpeg-python \
-        pillow -y && \
-    conda install transformers -y && \
-    conda install tensorflow -y && \
-    conda install jupyterlab -y && \
-    conda install \
+        pillow \
         timm \
         datasets \
         evaluate \
@@ -75,7 +81,7 @@ RUN conda info --env && \
         langchain \
         gradio \
         -y && \
-    conda clean -afy
+    mba clean -afy
 
 WORKDIR /workspace
 
