@@ -63,7 +63,9 @@ RUN conda info --env && \
     micromamba install tensorflow -y && \
     micromamba install transformers -y && \
     micromamba install jupyterlab -y && \
-    micromamba install \
+    conda clean -afy && \
+    micromamba clean -afy && \
+    pip3 install \
         tqdm \
         iprogress \
         ffmpeg \
@@ -84,10 +86,9 @@ RUN conda info --env && \
         soundfile>=0.12.1 \
         librosa \
         langchain \
-        gradio \
-        -y && \
-    conda clean -afy && \
-    micromamba clean -afy
+        gradio &&\
+    pip3 cache purge
+
 
 WORKDIR /workspace
 
