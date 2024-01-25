@@ -59,11 +59,11 @@ SHELL ["conda", "run", "--no-capture-output", "-n", "llm-dev", "/bin/bash", "-c"
 
 RUN conda info --env && \
     python --version && \
-    mba install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia -y && \
-    mba install tensorflow -y && \
-    mba install transformers -y && \
-    mba install jupyterlab -y && \
-    mba install \
+    micromamba install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia -y && \
+    micromamba install tensorflow -y && \
+    micromamba install transformers -y && \
+    micromamba install jupyterlab -y && \
+    micromamba install \
         tqdm \
         iprogress \
         ffmpeg \
@@ -86,7 +86,8 @@ RUN conda info --env && \
         langchain \
         gradio \
         -y && \
-    mba clean -afy
+    conda clean -afy && \
+    micromamba clean -afy
 
 WORKDIR /workspace
 
