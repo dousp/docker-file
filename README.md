@@ -20,6 +20,7 @@
 
 
 ## Install Python
+
 - 安装conda会自带python，这个就省了
 
 ```dockerfile
@@ -33,6 +34,7 @@ RUN wget https://www.python.org/ftp/python/"$PYTHON_VERSION"/Python-"$PYTHON_VER
     ln -s /usr/local/bin/python3 /usr/local/bin/python && \
     ln -s /usr/local/bin/pip3 /usr/local/bin/pip
 ```
+
 
 ## 问题整理
 
