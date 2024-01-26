@@ -24,14 +24,14 @@
 
 ```dockerfile
 # https://www.python.org/ftp/python/
-#RUN wget https://www.python.org/ftp/python/"$PYTHON_VERSION"/Python-"$PYTHON_VERSION".tgz && \
-#    tar -xvf Python-"$PYTHON_VERSION".tgz && \
-#    cd Python-"$PYTHON_VERSION" && \
-#    ./configure --enable-optimizations && \
-#    make && \
-#    make install && \
-#    ln -s /usr/local/bin/python3 /usr/local/bin/python && \
-#    ln -s /usr/local/bin/pip3 /usr/local/bin/pip
+RUN wget https://www.python.org/ftp/python/"$PYTHON_VERSION"/Python-"$PYTHON_VERSION".tgz && \
+    tar -xvf Python-"$PYTHON_VERSION".tgz && \
+    cd Python-"$PYTHON_VERSION" && \
+    ./configure --enable-optimizations && \
+    make && \
+    make install && \
+    ln -s /usr/local/bin/python3 /usr/local/bin/python && \
+    ln -s /usr/local/bin/pip3 /usr/local/bin/pip
 ```
 
 ## 问题整理
@@ -52,6 +52,10 @@ RUN \
 SHELL ["conda", "run", "--no-capture-output", "-n", "llm-dev", "/bin/bash", "-c"]
 
 ```
+
+### conda默认没有`conda-forge`
+conda config --append channels conda-forge
+
 
 ### cuda镜像构建需要做处理
 - 用cuda镜像的时候容器出幺蛾子
