@@ -5,7 +5,6 @@ FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
 SHELL ["/bin/bash", "-c"]
 
 # 设置环境变量
-
 ENV PYTHON_VERSION=3.11.7
 #非交互方式安装包
 ENV DEBIAN_FRONTEND=noninteractive
@@ -87,10 +86,23 @@ RUN conda info --env && \
         librosa \
         langchain \
         gradio &&\
-    pip3 cache purge
-
+    pip3 install jupyter_contrib_nbextensions && \
+    pip3 install jupyter_nbextensions_configurator && \
+    jupyter contrib nbextension install --user && \
+    jupyter nbextensions_configurator enable --user && \
+    pip3 cache purge && \
+    jupyter notebook --generate-config && \
+    python -c "from notebook.auth import passwd; print(\"c.NotebookApp.password = u'\" +  passwd('ddd') + \"'\")" >> ~/.jupyter/jupyter_notebook_config.py && \
+    echo "c.NotebookApp.port = 8888"  >> ~/.jupyter/jupyter_notebook_config.py && \
+    echo "c.NotebookApp.ip = '0.0.0.0'" >> ~/.jupyter/jupyter_notebook_config.py && \
+    echo "c.ServerApp.open_browser = True" >> ~/.jupyter/jupyter_notebook_config.py && \
+    echo "c.ServerApp.allow_root = True" >> ~/.jupyter/jupyter_notebook_config.py && \
 
 WORKDIR /workspace
 
 RUN rm -r /temp
+
+CMD ["sh", "-c", "nohup jupyter notebook --allow-root --no-browser > /tmp/jupyter.log 2>&1 &"]
+
+EXPOSE 8888
 
