@@ -9,8 +9,8 @@ ENV \
     PYTHON_VERSION=3.11.7 \
     # 非交互方式安装包
     DEBIAN_FRONTEND=noninteractive \
-    # 时区
-    TZ=Asia/Shanghai
+    TZ=Asia/Shanghai \
+    PATH="/opt/miniconda/bin:$PATH"
 
 WORKDIR /temp
 
@@ -30,11 +30,9 @@ RUN \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# 安装Miniconda
+# 安装Miniconda、micromamba
 # 创建llm-dev环境并安装PyTorch
-ENV PATH="/opt/miniconda/bin:$PATH"
 #ENV CONDA_DEFAULT_ENV llm-dev
-
 RUN \
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
     bash miniconda.sh -b -p /opt/miniconda  && \
@@ -98,7 +96,7 @@ RUN conda info --env && \
     echo "c.NotebookApp.port = 8888"  >> ~/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.ip = '0.0.0.0'" >> ~/.jupyter/jupyter_notebook_config.py && \
     echo "c.ServerApp.open_browser = True" >> ~/.jupyter/jupyter_notebook_config.py && \
-    echo "c.ServerApp.allow_root = True" >> ~/.jupyter/jupyter_notebook_config.py && \
+    echo "c.ServerApp.allow_root = True" >> ~/.jupyter/jupyter_notebook_config.py
 
 WORKDIR /workspace
 
