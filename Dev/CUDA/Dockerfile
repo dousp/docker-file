@@ -92,7 +92,7 @@ RUN conda info --env && \
     jupyter nbextensions_configurator enable --user && \
     pip3 cache purge && \
     jupyter notebook --generate-config && \
-    python -c "from notebook.auth import passwd; print(\"c.NotebookApp.password = u'\" +  passwd('ddd') + \"'\")" >> ~/.jupyter/jupyter_notebook_config.py && \
+    echo "c.NotebookApp.token = 'ddd'"  >> ~/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.port = 8888"  >> ~/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.ip = '0.0.0.0'" >> ~/.jupyter/jupyter_notebook_config.py && \
     echo "c.ServerApp.open_browser = True" >> ~/.jupyter/jupyter_notebook_config.py && \
