@@ -5,10 +5,12 @@ FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
 SHELL ["/bin/bash", "-c"]
 
 # 设置环境变量
-ENV PYTHON_VERSION=3.11.7
-#非交互方式安装包
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=Asia/Shanghai
+ENV \
+    PYTHON_VERSION=3.11.7 \
+    # 非交互方式安装包
+    DEBIAN_FRONTEND=noninteractive \
+    # 时区
+    TZ=Asia/Shanghai
 
 WORKDIR /temp
 
@@ -36,11 +38,11 @@ ENV PATH="/opt/miniconda/bin:$PATH"
 RUN \
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
     bash miniconda.sh -b -p /opt/miniconda  && \
-    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ && \
-    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ && \
-    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ && \
-    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ && \
-    conda config --add channels https://mirrors.aliyun.com/anaconda/cloud/nvidia/ && \
+    conda config --add channels bioconda && \
+    conda config --add channels anaconda && \
+    conda config --add channels nvidia && \
+    conda config --add channels pytorch && \
+    conda config --add channels conda-forge && \
     conda config --set show_channel_urls yes && \
     conda clean -i && \
     conda update conda -y && \
