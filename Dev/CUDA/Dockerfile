@@ -85,11 +85,11 @@ RUN conda info --env && \
         soundfile>=0.12.1 \
         librosa \
         langchain \
-        gradio &&\
-    pip3 install jupyter_contrib_nbextensions && \
-    pip3 install jupyter_nbextensions_configurator && \
-    jupyter contrib nbextension install --user && \
-    jupyter nbextensions_configurator enable --user && \
+        gradio && \
+#    pip3 install jupyter_contrib_nbextensions && \
+#    pip3 install jupyter_nbextensions_configurator && \
+#    jupyter contrib nbextension install --user && \
+#    jupyter nbextensions_configurator enable --user && \
     pip3 cache purge && \
     jupyter notebook --generate-config && \
     echo "c.NotebookApp.token = 'ddd'"  >> ~/.jupyter/jupyter_notebook_config.py && \
