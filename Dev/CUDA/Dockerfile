@@ -62,7 +62,7 @@ RUN conda info --env && \
     micromamba install -y tensorflow && \
     micromamba install -y transformers && \
     micromamba install -y jupyterlab && \
-    jupyter notebook --generate-config && \
+    jupyter lab --generate-config && \
     echo "c.NotebookApp.token = 'ddd'"  >> ~/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.port = 8888"  >> ~/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.ip = '0.0.0.0'" >> ~/.jupyter/jupyter_notebook_config.py && \
