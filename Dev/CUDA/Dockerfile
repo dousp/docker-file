@@ -62,10 +62,6 @@ RUN conda info --env && \
     micromamba install -y tensorflow && \
     micromamba install -y transformers && \
     micromamba install -y jupyterlab && \
-    micromamba install -y jupyter_contrib_nbextensions && \
-    micromamba install -y jupyter_nbextensions_configurator && \
-    jupyter contrib nbextension install --user && \
-    jupyter nbextensions_configurator enable --user && \
     jupyter notebook --generate-config && \
     echo "c.NotebookApp.token = 'ddd'"  >> ~/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.port = 8888"  >> ~/.jupyter/jupyter_notebook_config.py && \
