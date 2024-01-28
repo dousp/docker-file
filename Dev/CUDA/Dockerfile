@@ -58,10 +58,20 @@ SHELL ["conda", "run", "--no-capture-output", "-n", "llm-dev", "/bin/bash", "-c"
 
 RUN conda info --env && \
     python --version && \
-    micromamba install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia -y && \
-    micromamba install tensorflow -y && \
-    micromamba install transformers -y && \
-    micromamba install jupyterlab -y && \
+    micromamba install -y pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia && \
+    micromamba install -y tensorflow && \
+    micromamba install -y transformers && \
+    micromamba install -y jupyterlab && \
+    micromamba install -y jupyter_contrib_nbextensions && \
+    micromamba install -y jupyter_nbextensions_configurator && \
+    jupyter contrib nbextension install --user && \
+    jupyter nbextensions_configurator enable --user && \
+    jupyter notebook --generate-config && \
+    echo "c.NotebookApp.token = 'ddd'"  >> ~/.jupyter/jupyter_notebook_config.py && \
+    echo "c.NotebookApp.port = 8888"  >> ~/.jupyter/jupyter_notebook_config.py && \
+    echo "c.NotebookApp.ip = '0.0.0.0'" >> ~/.jupyter/jupyter_notebook_config.py && \
+    echo "c.ServerApp.open_browser = True" >> ~/.jupyter/jupyter_notebook_config.py && \
+    echo "c.ServerApp.allow_root = True" >> ~/.jupyter/jupyter_notebook_config.py && \
     conda clean -afy && \
     micromamba clean -afy && \
     pip3 install \
@@ -86,17 +96,7 @@ RUN conda info --env && \
         librosa \
         langchain \
         gradio && \
-#    pip3 install jupyter_contrib_nbextensions && \
-#    pip3 install jupyter_nbextensions_configurator && \
-#    jupyter contrib nbextension install --user && \
-#    jupyter nbextensions_configurator enable --user && \
-    pip3 cache purge && \
-    jupyter notebook --generate-config && \
-    echo "c.NotebookApp.token = 'ddd'"  >> ~/.jupyter/jupyter_notebook_config.py && \
-    echo "c.NotebookApp.port = 8888"  >> ~/.jupyter/jupyter_notebook_config.py && \
-    echo "c.NotebookApp.ip = '0.0.0.0'" >> ~/.jupyter/jupyter_notebook_config.py && \
-    echo "c.ServerApp.open_browser = True" >> ~/.jupyter/jupyter_notebook_config.py && \
-    echo "c.ServerApp.allow_root = True" >> ~/.jupyter/jupyter_notebook_config.py
+    pip3 cache purge
 
 WORKDIR /workspace
 
