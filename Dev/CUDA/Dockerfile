@@ -1,12 +1,12 @@
 FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
 
 # 指定使用bash
-#RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 SHELL ["/bin/bash", "-c"]
 
 # 设置环境变量
 ENV \
     PYTHON_VERSION=3.11.7 \
+    CUDA_VERSION=12.1 \
     # 非交互方式安装包
     DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Shanghai \
@@ -46,19 +46,18 @@ RUN \
     conda update conda -y && \
     conda install -n base micromamba -y && \
     conda create -n llm-dev python="$PYTHON_VERSION" && \
+    conda clean -afy && \
     echo "alias mba='micromamba'" >> ~/.bashrc && \
     echo "alias pip='pip3'" >> ~/.bashrc && \
     echo "alias python='python3'" >> ~/.bashrc && \
     echo ". /opt/miniconda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate llm-dev" >> ~/.bashrc
 
-#ENV PATH /opt/miniconda/envs/llm-dev/bin:$PATH
-
 SHELL ["conda", "run", "--no-capture-output", "-n", "llm-dev", "/bin/bash", "-c"]
 
 RUN conda info --env && \
     python --version && \
-    micromamba install -y pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia && \
+    micromamba install -y pytorch torchvision torchaudio pytorch-cuda="$CUDA_VERSION" -c pytorch -c nvidia && \
     micromamba install -y tensorflow && \
     micromamba install -y transformers && \
     micromamba install -y jupyterlab && \
@@ -68,7 +67,6 @@ RUN conda info --env && \
     echo "c.NotebookApp.ip = '0.0.0.0'" >> ~/.jupyter/jupyter_notebook_config.py && \
     echo "c.ServerApp.open_browser = True" >> ~/.jupyter/jupyter_notebook_config.py && \
     echo "c.ServerApp.allow_root = True" >> ~/.jupyter/jupyter_notebook_config.py && \
-    conda clean -afy && \
     micromamba clean -afy && \
     pip3 install \
         tqdm \
